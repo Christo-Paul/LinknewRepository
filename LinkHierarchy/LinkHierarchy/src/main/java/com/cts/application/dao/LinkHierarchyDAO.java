@@ -56,8 +56,8 @@ public class LinkHierarchyDAO {
 	public List<PageA> getAllPageAContent() {
 		s = sessionFactory.getCurrentSession();
 		query = s.createQuery(queryPageA);
-		@SuppressWarnings("unchecked")
 		List<PageA> page_A_List = query.list();
+	
         if(page_A_List.size()==0)
         {
         log.info("Empty list in table A");

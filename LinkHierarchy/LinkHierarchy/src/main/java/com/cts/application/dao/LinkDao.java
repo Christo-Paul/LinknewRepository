@@ -34,6 +34,7 @@ public class LinkDao {
 	@Value("${page.d.query}")
 	private String sqld;
 
+
 	private BeanPropertyRowMapper<Link> k;
 
 	public void setJdbc(JdbcTemplate jdbc) {
@@ -50,7 +51,7 @@ public class LinkDao {
 		 k=new BeanPropertyRowMapper<Link>(Link.class);
 		//BeanPropertyRowMapper<Link> k=Mockito.mock(classToMock)
 			links = jdbc.query(sql_f, k); // Mapping
-						System.out.println(sql);																	// with
+						System.out.println(links+sql);																	// with
 			return links;																				// POJO
 																							// Link
 		//} catch (Exception e) {
