@@ -12,14 +12,11 @@ import com.cts.application.model.Link;
 import com.cts.application.model.Page;
 import com.cts.application.service.LinkService;
 
-
-
 @RestController
 public class LinkController {
 
 	@Autowired
 	LinkService linkService;
-
 
 	@GetMapping("/DynamicLinks/{linkName:.+}")
 	public List<Link> getLinks(@PathVariable("linkName") String linkName) {

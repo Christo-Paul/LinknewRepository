@@ -9,8 +9,6 @@ import com.cts.application.dao.LinkDao;
 import com.cts.application.model.Link;
 import com.cts.application.model.Page;
 
-
-
 @Component
 public class LinkService {
 	@Autowired

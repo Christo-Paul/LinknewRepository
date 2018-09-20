@@ -19,33 +19,34 @@ import com.cts.application.model.Link;
 import com.cts.application.model.Page;
 import com.cts.application.service.LinkHierarchyService;
 import com.cts.application.service.LinkService;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class LinkServiceTest {
 
 	@Autowired
 	LinkService linkService;
-	
+
 	@MockBean
 	private LinkDao linkDao;
-	
-	
 
 	@Test
 	public void testGetSubLinks() {
 		List<Page> listOfLinks = new ArrayList<Page>();
-		listOfLinks.add(new Page(1,"InvestmentBanking",0));
-		listOfLinks.add(new Page(2,"RetailBanking",0));
-		Mockito.when(linkDao.getSubLinks(Mockito.anyString(),Mockito.anyString())).thenReturn(listOfLinks);
-		assertEquals(listOfLinks.toString(),linkService.getSubLinks(Mockito.anyString(), Mockito.anyString()).toString());
+		listOfLinks.add(new Page(1, "InvestmentBanking", 0));
+		listOfLinks.add(new Page(2, "RetailBanking", 0));
+		Mockito.when(linkDao.getSubLinks(Mockito.anyString(), Mockito.anyString())).thenReturn(listOfLinks);
+		assertEquals(listOfLinks.toString(),
+				linkService.getSubLinks(Mockito.anyString(), Mockito.anyString()).toString());
 	}
+
 	@Test
 	public void testGetLinks() {
 		List<Link> listOfLinks = new ArrayList<Link>();
-		listOfLinks.add(new Link(1,"InvestmentBanking",0));
-		listOfLinks.add(new Link(2,"RetailBanking",0));
+		listOfLinks.add(new Link(1, "InvestmentBanking", 0));
+		listOfLinks.add(new Link(2, "RetailBanking", 0));
 		Mockito.when(linkDao.getLinks(Mockito.anyString())).thenReturn(listOfLinks);
-		assertEquals(listOfLinks.toString(),linkService.getLinks(Mockito.anyString()).toString());
+		assertEquals(listOfLinks.toString(), linkService.getLinks(Mockito.anyString()).toString());
 	}
 
 }

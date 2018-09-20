@@ -38,8 +38,8 @@ public class LinkHierarchyService {
 		List<PageB> list = hierarchyDAO.getAllPageBContent(link_name);
 		for (PageB pageB : list) {
 
-			Link link = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(pageB.getPageA().getPage_A_Name())
-					.slash(pageB.getPage_B_Name()).withSelfRel();
+			Link link = ControllerLinkBuilder.linkTo(LinkHierarchyController.class)
+					.slash(pageB.getPageA().getPage_A_Name()).slash(pageB.getPage_B_Name()).withSelfRel();
 			pageB.add(link);
 
 		}

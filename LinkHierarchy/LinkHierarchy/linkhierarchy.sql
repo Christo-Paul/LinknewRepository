@@ -1,6 +1,6 @@
 
-create database LinkTablesHierarchy;
-use LinkTablesHierarchy;
+create database LinkTablesHierarchys;
+use LinkTablesHierarchys;
 
 create table Page_A ( 
 page_A_Id int AUTO_INCREMENT PRIMARY KEY, 
@@ -89,3 +89,57 @@ insert into Page_D(page_D_Name,page_C_Id) values('Money_transfer&Insurance',(sel
 
 insert into Page_D(page_D_Name,page_C_Id) values('Agricultural_Loans',(select page_C_Id from Page_C where page_C_Name='Agricultural_Services'));
 insert into Page_D(page_D_Name,page_C_Id) values('Kissan_Credit_Card',(select page_C_Id from Page_C where page_C_Name='Agricultural_Services'));
+
+CREATE TABLE link_Mapping (
+  link_Id int(10) AUTO_INCREMENT PRIMARY KEY,
+  link_Name varchar(255) NOT NULL,
+  parent_link_Id int(10) DEFAULT NULL,
+  FOREIGN KEY (parent_link_Id) REFERENCES link_Mapping (link_Id) 
+    ON DELETE CASCADE
+);
+
+insert into link_Mapping(link_name) values('Investment_Banking');
+
+insert into link_mapping(link_name) values('Retail_Banking');
+
+insert into link_mapping(link_name,parent_link_id) values('Corporate_Finance(Advisory)',1);
+insert into link_mapping(link_name,parent_link_id) values('Capital_Market(Execution)',1);
+insert into link_mapping(link_name,parent_link_id) values('Private_Banks',2);
+insert into link_mapping(link_name,parent_link_id) values('Public_Banks',2);
+insert into link_mapping(link_name,parent_link_id) values('Industry Coverage',3);
+insert into link_mapping(link_name,parent_link_id) values('Merger&Acquisition',3);
+insert into link_mapping(link_name,parent_link_id) values('Equity_ Capital_Market',4);
+insert into link_mapping(link_name,parent_link_id) values('Debt_Capital _Market',4);
+insert into link_mapping(link_name,parent_link_id) values('Deposits',5);
+insert into link_mapping(link_name,parent_link_id) values('Card_Services',5);
+insert into link_mapping(link_name,parent_link_id) values('Insurance',5);
+insert into link_mapping(link_name,parent_link_id) values('Personal_Banking',6);
+insert into link_mapping(link_name,parent_link_id) values('NRI_Services',6);
+insert into link_mapping(link_name,parent_link_id) values('Agricultural_Services',6);
+insert into link_mapping(link_name,parent_link_id) values('Healthcare',7);
+insert into link_mapping(link_name,parent_link_id) values('RealEstate',7);
+insert into link_mapping(link_name,parent_link_id) values('Energy',7);
+insert into link_mapping(link_name,parent_link_id) values('Joint_Ventures',8);
+insert into link_mapping(link_name,parent_link_id) values('Split-Offs',8);
+insert into link_mapping(link_name,parent_link_id) values('IPOs',9);
+insert into link_mapping(link_name,parent_link_id) values('Follow-On',9);
+insert into link_mapping(link_name,parent_link_id) values('Private_Placement',9);
+insert into link_mapping(link_name,parent_link_id) values('Investment_Grade',10);
+insert into link_mapping(link_name,parent_link_id) values('Leveraged_Finance',10);
+insert into link_mapping(link_name,parent_link_id) values('Current_Deposit',11);
+insert into link_mapping(link_name,parent_link_id) values('Recurring_Deposit',11);
+insert into link_mapping(link_name,parent_link_id) values('Fixed_Deposit',11);
+insert into link_mapping(link_name,parent_link_id) values('Credit_Card',12);
+insert into link_mapping(link_name,parent_link_id) values('Debit_Card',12);
+insert into link_mapping(link_name,parent_link_id) values('Car_Insurance',13);
+insert into link_mapping(link_name,parent_link_id) values('House_Insurance',13);
+insert into link_mapping(link_name,parent_link_id) values('Life_Insurance',13);
+insert into link_mapping(link_name,parent_link_id) values('Accounts',14);
+insert into link_mapping(link_name,parent_link_id) values('Loans',14);
+insert into link_mapping(link_name,parent_link_id) values('Other_Services',14);
+insert into link_mapping(link_name,parent_link_id) values('Home_loans',15);
+insert into link_mapping(link_name,parent_link_id) values('Trading',15);
+insert into link_mapping(link_name,parent_link_id) values('Money_transfer&Insurance',15);
+insert into link_mapping(link_name,parent_link_id) values('Agricultural_Loans',16);
+insert into link_mapping(link_name,parent_link_id) values('Kissan_Credit_Card',16);
+

@@ -49,19 +49,12 @@ public class HierarchyControllerTest {
 		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(p1.getPage_A_Name())
 				.withSelfRel();
 		p1.add(link1);
-
 		List<PageA> pageAlist = Arrays.asList(p1);
-
 		Mockito.when(hierarchyService.getAllPageAContent()).thenReturn(pageAlist);
-
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Banking/").accept(MediaType.APPLICATION_JSON);
-
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
 		System.out.println(result.getResponse());
 		String expected = "[{\"page_A_Id\": 1,\"page_A_Name\": \"InvestmentBanking\", \"links\": [{ \"rel\": \"self\",\"href\": \"/Banking/InvestmentBanking\"}]}]";
-		// [{"page_A_Id":1,"page_A_Name":"InvestmentBanking","links":[{"rel":"self","href":"/InvestmentBanking"}]}]
-
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 	}
 
@@ -73,18 +66,12 @@ public class HierarchyControllerTest {
 		;
 		p2.add(link1);
 		List<PageB> pageBlist = Arrays.asList(p2);
-
 		Mockito.when(hierarchyService.getAllPageBContent(Mockito.anyString())).thenReturn(pageBlist);
-
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Banking/anystring")
 				.accept(MediaType.APPLICATION_JSON);
-
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
 		System.out.println(result.getResponse());
-
 		String expected = "[{\"page_B_Id\":1,\"page_B_Name\":\"CorporateFinance\",\"pageA\":{\"page_A_Id\":1,\"page_A_Name\":\"InvestmentBanking\",\"links\":[]},\"links\":[{\"rel\":\"self\",\"href\":\"/Banking/InvestmentBanking/CorporateFinance\"}]}]";
-
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 	}
 
@@ -95,20 +82,13 @@ public class HierarchyControllerTest {
 				.slash(p3.getPageB().getPageA().getPage_A_Name()).slash(p3.getPageB().getPage_B_Name())
 				.slash(p3.getPage_C_Name()).withSelfRel();
 		p3.add(link1);
-
 		List<PageC> pageClist = Arrays.asList(p3);
-
 		Mockito.when(hierarchyService.getAllPageCContent(Mockito.anyString())).thenReturn(pageClist);
-
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Banking/InvestmentBanking/CorporateFinance")
 				.accept(MediaType.APPLICATION_JSON);
-
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
 		System.out.println(result.getResponse());
-
 		String expected = "[{\"page_C_Id\":1,\"page_C_Name\":\"Industry_Coverage\",\"pageB\":{\"page_B_Id\":1,\"page_B_Name\":\"CorporateFinance\",\"pageA\":{\"page_A_Id\":1,\"page_A_Name\":\"InvestmentBanking\",\"links\":[]},\"links\":[]},\"links\":[{\"rel\":\"self\",\"href\":\"/Banking/InvestmentBanking/CorporateFinance/Industry_Coverage\"}]}]";
-
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 
 	}
@@ -121,21 +101,14 @@ public class HierarchyControllerTest {
 				.slash(p4.getPageC().getPageB().getPage_B_Name()).slash(p4.getPageC().getPage_C_Name())
 				.slash(p4.getPage_D_Name()).withSelfRel();
 		p3.add(link1);
-
 		List<PageD> pageDlist = Arrays.asList(p4);
-
 		Mockito.when(hierarchyService.getAllPageDContent(Mockito.anyString())).thenReturn(pageDlist);
-
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get("/Banking/InvestmentBanking/CorporateFinance/Industry_Coverage")
 				.accept(MediaType.APPLICATION_JSON);
-
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
 		System.out.println(result.getResponse());
-
 		String expected = "[{\"page_D_Id\":1,\"page_D_Name\":\"Healthcare\",\"pageC\":{\"page_C_Id\":1,\"page_C_Name\":\"Industry_Coverage\",\"pageB\":{\"page_B_Id\":1,\"page_B_Name\":\"CorporateFinance\",\"pageA\":{\"page_A_Id\":1,\"page_A_Name\":\"InvestmentBanking\",\"links\":[]},\"links\":[]},\"links\":[{\"rel\":\"self\",\"href\":\"/Banking/InvestmentBanking/CorporateFinance/Industry_Coverage/Healthcare\"}]},\"links\":[]}]";
-
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 
 	}
@@ -146,9 +119,7 @@ public class HierarchyControllerTest {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get("/Banking/InvestmentBanking/CorporateFinance/Industry_Coverage/Healthcare")
 				.accept(MediaType.ALL_VALUE);
-
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
 		String expected = "No More Further Subdivisions !!!";
 		System.out.println(result.getResponse() + "\n " + expected);
 		assertTrue(expected.equals(result.getResponse().getContentAsString()));
