@@ -60,7 +60,7 @@ public class LinkHierarchyDAO {
 	
         if(pageAList.size()==0)
         {
-        log.info("Empty list in table A");             //Logs into log file if empty list is returned
+        log.info("Link not available in table A");             //Logs into log file if link not found is returned
         }
 		return pageAList;
 	}
@@ -72,7 +72,7 @@ public class LinkHierarchyDAO {
 		List<PageB> pageBList = query.list();
 		if(pageBList.size()==0)
         {
-        log.info("Empty list in table B");            //Logs into log file if empty list is returned
+        log.info("Link not available in table B");            //Logs into log file if link not found is returned
         }
 		return pageBList;
 
@@ -85,7 +85,7 @@ public class LinkHierarchyDAO {
 		List<PageC> pageCList = query.list();          //Retrieves the list from database
 		if(pageCList.size()==0)
         {
-        log.info("Empty list in table C");             //Logs into log file if empty list is returned
+        log.info("Link not available in table C");              //Logs into log file if link not found is returned
         }
 		return pageCList;
 
@@ -98,8 +98,9 @@ public class LinkHierarchyDAO {
 		List<PageD> pageDList = query.list();          //Retrieves the list from database
 		if(pageDList.size()==0)
         {
-        log.info("Empty list in table D");             //Logs into log file if empty list is returned
+        log.info("Link not available in table D");              //Logs into log file if link not found is returned
         }
+		
 		return pageDList;
 	}
 

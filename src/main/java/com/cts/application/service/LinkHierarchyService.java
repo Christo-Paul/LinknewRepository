@@ -22,12 +22,12 @@ public class LinkHierarchyService {
 
 	public List<PageA> getAllPageAContent() {
 
-		List<PageA> list = hierarchyDAO.getAllPageAContent();
+		List<PageA> list = hierarchyDAO.getAllPageAContent(); // Get the pageA list from DAO
 		for (PageA pageA : list) {
 
 			Link link = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(pageA.getPage_A_Name())
 					.withSelfRel();
-			pageA.add(link);
+			pageA.add(link);        //Create a link using linkbuilder and add it to PageA
 
 		}
 
@@ -35,12 +35,12 @@ public class LinkHierarchyService {
 	}
 
 	public List<PageB> getAllPageBContent(String linkname) {
-		List<PageB> list = hierarchyDAO.getAllPageBContent(linkname);
+		List<PageB> list = hierarchyDAO.getAllPageBContent(linkname); // Get the pageA list from DAO
 		for (PageB pageB : list) {
 
 			Link link = ControllerLinkBuilder.linkTo(LinkHierarchyController.class)
 					.slash(pageB.getPageA().getPage_A_Name()).slash(pageB.getPage_B_Name()).withSelfRel();
-			pageB.add(link);
+			pageB.add(link);        //Create a link using linkbuilder and add it to PageA
 
 		}
 		return list;
@@ -48,13 +48,13 @@ public class LinkHierarchyService {
 	}
 
 	public List<PageC> getAllPageCContent(String linkname) {
-		List<PageC> list = hierarchyDAO.getAllPageCContent(linkname);
+		List<PageC> list = hierarchyDAO.getAllPageCContent(linkname); // Get the pageA list from DAO
 		for (PageC pageC : list) {
 
 			Link link = ControllerLinkBuilder.linkTo(LinkHierarchyController.class)
 					.slash(pageC.getPageB().getPageA().getPage_A_Name()).slash(pageC.getPageB().getPage_B_Name())
 					.slash(pageC.getPage_C_Name()).withSelfRel();
-			pageC.add(link);
+			pageC.add(link);        //Create a link using linkbuilder and add it to PageA
 
 		}
 		return list;
@@ -63,14 +63,14 @@ public class LinkHierarchyService {
 
 	public List<PageD> getAllPageDContent(String linknameD) {
 
-		List<PageD> list = hierarchyDAO.getAllPageDContent(linknameD);
+		List<PageD> list = hierarchyDAO.getAllPageDContent(linknameD); // Get the pageA list from DAO
 		for (PageD pageD : list) {
 
 			Link link = ControllerLinkBuilder.linkTo(LinkHierarchyController.class)
 					.slash(pageD.getPageC().getPageB().getPageA().getPage_A_Name())
 					.slash(pageD.getPageC().getPageB().getPage_B_Name()).slash(pageD.getPageC().getPage_C_Name())
 					.slash(pageD.getPage_D_Name()).withSelfRel();
-			pageD.add(link);
+			pageD.add(link);        //Create a link using linkbuilder and add it to PageA
 
 		}
 		return list;
