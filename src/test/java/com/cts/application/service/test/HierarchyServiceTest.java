@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -29,16 +30,22 @@ public class HierarchyServiceTest {
 
 	@MockBean
 	private LinkHierarchyDAO hierarchyDao;
-
-	PageA p1 = new PageA(1, "InvestmentBanking");
-	PageB p2 = new PageB(1, "CorporateFinance", p1);
-	PageC p3 = new PageC(1, "Industry_Coverage", p2);
-	PageD p4 = new PageD(1, "Healthcare", p3);
-
+	PageA pageA ;
+	PageB pageB ;
+	PageC pageC ;
+	PageD pageD ;
+	
+	@Before
+	public void setup(){
+	 pageA = new PageA(1, "InvestmentBanking");
+	 pageB = new PageB(1, "CorporateFinance", pageA);
+	 pageC = new PageC(1, "Industry_Coverage", pageB);
+	 pageD = new PageD(1, "Healthcare", pageC);
+	}
 	@Test
 	public void testGetAllPageAContent() {
 
-		List<PageA> pageAlist = Arrays.asList(p1);
+		List<PageA> pageAlist = Arrays.asList(pageA);
 		Mockito.when(hierarchyDao.getAllPageAContent()).thenReturn(pageAlist);
 		assertEquals(pageAlist.toString(), hierarchyService.getAllPageAContent().toString());
 
@@ -47,7 +54,7 @@ public class HierarchyServiceTest {
 	@Test
 	public void testGetAllPageBContent() {
 
-		List<PageB> pageBlist = Arrays.asList(p2);
+		List<PageB> pageBlist = Arrays.asList(pageB);
 		Mockito.when(hierarchyDao.getAllPageBContent(Mockito.anyString())).thenReturn(pageBlist);
 		assertEquals(pageBlist.toString(), hierarchyService.getAllPageBContent(Mockito.anyString()).toString());
 
@@ -55,14 +62,14 @@ public class HierarchyServiceTest {
 
 	@Test
 	public void testGetAllPageCContent() {
-		List<PageC> pageClist = Arrays.asList(p3);
+		List<PageC> pageClist = Arrays.asList(pageC);
 		Mockito.when(hierarchyDao.getAllPageCContent(Mockito.anyString())).thenReturn(pageClist);
 		assertEquals(pageClist.toString(), hierarchyService.getAllPageCContent(Mockito.anyString()).toString());
 	}
 
 	@Test
 	public void testGetAllPageDContent() {
-		List<PageD> pageDlist = Arrays.asList(p4);
+		List<PageD> pageDlist = Arrays.asList(pageD);
 		Mockito.when(hierarchyDao.getAllPageDContent(Mockito.anyString())).thenReturn(pageDlist);
 		assertEquals(pageDlist.toString(), hierarchyService.getAllPageDContent(Mockito.anyString()).toString());
 	}

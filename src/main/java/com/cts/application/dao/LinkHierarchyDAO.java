@@ -54,52 +54,51 @@ public class LinkHierarchyDAO {
 	}
 
 	public List<PageA> getAllPageAContent() {
-		session = sessionFactory.getCurrentSession();
-		query = session.createQuery(queryPageA);
-		List<PageA> pageAList = query.list();
+		session = sessionFactory.getCurrentSession();  //Gets the session from sessionfactory
+		query = session.createQuery(queryPageA);       //Creates the query using session object
+		List<PageA> pageAList = query.list();          //Retrieves the list from database
 	
         if(pageAList.size()==0)
         {
-        log.info("Empty list in table A");
+        log.info("Empty list in table A");             //Logs into log file if empty list is returned
         }
 		return pageAList;
 	}
 
 	public List<PageB> getAllPageBContent(String linkname) {
-		session = sessionFactory.getCurrentSession();
-
-		query = session.createQuery(queryPageB).setParameter(1, linkname);
+		session = sessionFactory.getCurrentSession(); //Gets the session from sessionfactory
+		query = session.createQuery(queryPageB).setParameter(1, linkname); //Creates the query using session object
 		@SuppressWarnings("unchecked")
 		List<PageB> pageBList = query.list();
 		if(pageBList.size()==0)
         {
-        log.info("Empty list in table B");
+        log.info("Empty list in table B");            //Logs into log file if empty list is returned
         }
 		return pageBList;
 
 	}
 
 	public List<PageC> getAllPageCContent(String linkname) {
-		session = sessionFactory.getCurrentSession();
-		query = session.createQuery(queryPageC).setParameter(1, linkname);
+		session = sessionFactory.getCurrentSession();  //Gets the session from sessionfactory
+		query = session.createQuery(queryPageC).setParameter(1, linkname); //Retrieves the list from database
 		@SuppressWarnings("unchecked")
-		List<PageC> pageCList = query.list();
+		List<PageC> pageCList = query.list();          //Retrieves the list from database
 		if(pageCList.size()==0)
         {
-        log.info("Empty list in table C");
+        log.info("Empty list in table C");             //Logs into log file if empty list is returned
         }
 		return pageCList;
 
 	}
 
 	public List<PageD> getAllPageDContent(String linkname) {
-		session= sessionFactory.getCurrentSession();
-		query = session.createQuery(queryPageD).setParameter(1, linkname);
+		session= sessionFactory.getCurrentSession(); //Gets the session from sessionfactory
+		query = session.createQuery(queryPageD).setParameter(1, linkname); //Retrieves the list from database
 		@SuppressWarnings("unchecked")
-		List<PageD> pageDList = query.list();
+		List<PageD> pageDList = query.list();          //Retrieves the list from database
 		if(pageDList.size()==0)
         {
-        log.info("Empty list in table D");
+        log.info("Empty list in table D");             //Logs into log file if empty list is returned
         }
 		return pageDList;
 	}
