@@ -21,26 +21,26 @@ public class LinkHierarchyController {
 	@Autowired
 	private LinkHierarchyService hierarchyService;
 
-	@GetMapping("/")
+	@GetMapping("/")                                      //Mapping to fetch the first level of links
 	public List<PageA> getAllArticles() {
 		List<PageA> list = hierarchyService.getAllPageAContent();
 		return list;
 	}
 
-	@RequestMapping("/{linknameB}")
+	@RequestMapping("/{linknameB}")                      //Mapping to fetch the second level of links
 	public List<PageB> getPageBcontent(@PathVariable("linknameB") String linknameB) {
 		List<PageB> list = hierarchyService.getAllPageBContent(linknameB);
 		return list;
 	}
 
-	@RequestMapping("{linknameB}/{linknameC}")
+	@RequestMapping("{linknameB}/{linknameC}")              //Mapping to fetch the third level of links
 	public List<PageC> getPageCcontent(@PathVariable("linknameB") String linknameB,
 			@PathVariable("linknameC") String linknameC) {
 		List<PageC> list = hierarchyService.getAllPageCContent(linknameC);
 		return list;
 	}
 
-	@RequestMapping("{linknameB}/{linknameC}/{linknameD}")
+	@RequestMapping("{linknameB}/{linknameC}/{linknameD}")  //Mapping to fetch the fourth level of links
 	public List<PageD> getPageDcontent(@PathVariable("linknameB") String linknameB,
 			@PathVariable("linknameC") String linknameC, @PathVariable("linknameD") String linknameD) {
 		List<PageD> list = hierarchyService.getAllPageDContent(linknameD);

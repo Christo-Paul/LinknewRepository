@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -38,18 +39,25 @@ public class HierarchyControllerTest {
 
 	@MockBean
 	private LinkHierarchyService hierarchyService;
-
-	PageA p1 = new PageA(1, "InvestmentBanking");
-	PageB p2 = new PageB(1, "CorporateFinance", p1);
-	PageC p3 = new PageC(1, "Industry_Coverage", p2);
-	PageD p4 = new PageD(1, "Healthcare", p3);
-
+    
+	PageA pageA ;
+	PageB pageB ;
+	PageC pageC ;
+	PageD pageD ;
+	
+	@Before
+	public void setup(){
+	 pageA = new PageA(1, "InvestmentBanking");
+	 pageB = new PageB(1, "CorporateFinance", pageA);
+	 pageC = new PageC(1, "Industry_Coverage", pageB);
+	 pageD = new PageD(1, "Healthcare", pageC);
+	}
 	@Test
 	public void testGetAllArticles() throws Exception {
-		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(p1.getPage_A_Name())
+		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(pageA.getPage_A_Name())
 				.withSelfRel();
-		p1.add(link1);
-		List<PageA> pageAlist = Arrays.asList(p1);
+		pageA.add(link1);
+		List<PageA> pageAlist = Arrays.asList(pageA);
 		Mockito.when(hierarchyService.getAllPageAContent()).thenReturn(pageAlist);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Banking/").accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -61,11 +69,11 @@ public class HierarchyControllerTest {
 	@Test
 	public void testGetPageBcontent() throws Exception {
 
-		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(p2.getPageA().getPage_A_Name())
-				.slash(p2.getPage_B_Name()).withSelfRel();
+		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class).slash(pageB.getPageA().getPage_A_Name())
+				.slash(pageB.getPage_B_Name()).withSelfRel();
 		;
-		p2.add(link1);
-		List<PageB> pageBlist = Arrays.asList(p2);
+		pageB.add(link1);
+		List<PageB> pageBlist = Arrays.asList(pageB);
 		Mockito.when(hierarchyService.getAllPageBContent(Mockito.anyString())).thenReturn(pageBlist);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Banking/anystring")
 				.accept(MediaType.APPLICATION_JSON);
@@ -79,10 +87,10 @@ public class HierarchyControllerTest {
 	public void testGetPageCcontent() throws Exception {
 
 		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class)
-				.slash(p3.getPageB().getPageA().getPage_A_Name()).slash(p3.getPageB().getPage_B_Name())
-				.slash(p3.getPage_C_Name()).withSelfRel();
-		p3.add(link1);
-		List<PageC> pageClist = Arrays.asList(p3);
+				.slash(pageC.getPageB().getPageA().getPage_A_Name()).slash(pageC.getPageB().getPage_B_Name())
+				.slash(pageC.getPage_C_Name()).withSelfRel();
+		pageC.add(link1);
+		List<PageC> pageClist = Arrays.asList(pageC);
 		Mockito.when(hierarchyService.getAllPageCContent(Mockito.anyString())).thenReturn(pageClist);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Banking/InvestmentBanking/CorporateFinance")
 				.accept(MediaType.APPLICATION_JSON);
@@ -97,11 +105,11 @@ public class HierarchyControllerTest {
 	public void testGetPageDcontent() throws Exception {
 
 		Link link1 = ControllerLinkBuilder.linkTo(LinkHierarchyController.class)
-				.slash(p4.getPageC().getPageB().getPageA().getPage_A_Name())
-				.slash(p4.getPageC().getPageB().getPage_B_Name()).slash(p4.getPageC().getPage_C_Name())
-				.slash(p4.getPage_D_Name()).withSelfRel();
-		p3.add(link1);
-		List<PageD> pageDlist = Arrays.asList(p4);
+				.slash(pageD.getPageC().getPageB().getPageA().getPage_A_Name())
+				.slash(pageD.getPageC().getPageB().getPage_B_Name()).slash(pageD.getPageC().getPage_C_Name())
+				.slash(pageD.getPage_D_Name()).withSelfRel();
+		pageC.add(link1);
+		List<PageD> pageDlist = Arrays.asList(pageD);
 		Mockito.when(hierarchyService.getAllPageDContent(Mockito.anyString())).thenReturn(pageDlist);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get("/Banking/InvestmentBanking/CorporateFinance/Industry_Coverage")

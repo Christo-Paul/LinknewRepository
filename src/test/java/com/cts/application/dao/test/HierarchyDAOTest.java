@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import org.hibernate.query.Query;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -55,16 +55,23 @@ public class HierarchyDAOTest extends TestCase {
 	@Mock
 	private Query query2;
 
-	PageA p1 = new PageA(1, "InvestmentBanking");
-	PageB p2 = new PageB(1, "CorporateFinance", p1);
-	PageC p3 = new PageC(1, "Industry_Coverage", p2);
-	PageD p4 = new PageD(1, "Healthcare", p3);
-
+	PageA pageA ;
+	PageB pageB ;
+	PageC pageC ;
+	PageD pageD ;
+	
+	@Before
+	public void setup(){
+	 pageA = new PageA(1, "InvestmentBanking");
+	 pageB = new PageB(1, "CorporateFinance", pageA);
+	 pageC = new PageC(1, "Industry_Coverage", pageB);
+	 pageD = new PageD(1, "Healthcare", pageC);
+	}
 	@Test
 	public void testGetAllPageAContent() {
 
 		LinkHierarchyDAO hierarchyDAO = new LinkHierarchyDAO();
-		List<PageA> pageAlist = Arrays.asList(p1);
+		List<PageA> pageAlist = Arrays.asList(pageA);
 		hierarchyDAO.setSessionFactory(this.sessionFactory);
 		Mockito.when(this.sessionFactory.getCurrentSession()).thenReturn(this.session);
 		Mockito.when(this.session.createQuery(queryPageA)).thenReturn(this.query);
@@ -76,7 +83,7 @@ public class HierarchyDAOTest extends TestCase {
 	public void testGetAllPageBContent() {
 		String trial = "anyString";
 		LinkHierarchyDAO hierarchyDAO = new LinkHierarchyDAO();
-		List<PageB> pageBlist = Arrays.asList(p2);
+		List<PageB> pageBlist = Arrays.asList(pageB);
 		hierarchyDAO.setSessionFactory(this.sessionFactory);
 		Mockito.when(this.sessionFactory.getCurrentSession()).thenReturn(this.session);
 		Mockito.when(this.session.createQuery(queryPageB)).thenReturn(this.query);
@@ -89,7 +96,7 @@ public class HierarchyDAOTest extends TestCase {
 	public void testGetAllPageCContent() {
 		String trial = "anyString";
 		LinkHierarchyDAO hierarchyDAO = new LinkHierarchyDAO();
-		List<PageC> pageClist = Arrays.asList(p3);
+		List<PageC> pageClist = Arrays.asList(pageC);
 		hierarchyDAO.setSessionFactory(this.sessionFactory);
 		Mockito.when(this.sessionFactory.getCurrentSession()).thenReturn(this.session);
 		Mockito.when(this.session.createQuery(queryPageB)).thenReturn(this.query);
@@ -102,7 +109,7 @@ public class HierarchyDAOTest extends TestCase {
 	public void testGetAllPageDContent() {
 		String trial = "anyString";
 		LinkHierarchyDAO hierarchyDAO = new LinkHierarchyDAO();
-		List<PageD> pageDlist = Arrays.asList(p4);
+		List<PageD> pageDlist = Arrays.asList(pageD);
 		hierarchyDAO.setSessionFactory(this.sessionFactory);
 		Mockito.when(this.sessionFactory.getCurrentSession()).thenReturn(this.session);
 		Mockito.when(this.session.createQuery(queryPageB)).thenReturn(this.query);

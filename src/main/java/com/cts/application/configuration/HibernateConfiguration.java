@@ -30,7 +30,7 @@ public class HibernateConfiguration {
 	@Value("${entitymanager.packagesToScan}")
 	private String PACKAGES_TO_SCAN;
 
-@Bean
+@Bean                                            //Bean which sets the dataSource properties
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(DRIVER);
@@ -40,7 +40,7 @@ public class HibernateConfiguration {
 		return dataSource;
 	}
 
-	@Bean
+	@Bean                                        //Bean which sets the sessionFactory properties
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
@@ -51,7 +51,7 @@ public class HibernateConfiguration {
 		return sessionFactory;
 	}
 
-	@Bean
+	@Bean                                        //Bean which sets the transactionManager properties
 	public HibernateTransactionManager transactionManager() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(sessionFactory().getObject());
