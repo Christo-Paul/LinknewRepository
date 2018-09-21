@@ -100,6 +100,7 @@ public class LinkHierarchyDAO {
         {
         log.info("Empty list in table D");             //Logs into log file if empty list is returned
         }
+		
 		return pageDList;
 	}
 
